@@ -5,27 +5,32 @@ import config from "../config";
 export const signupController = async (req, res) => {
   try {
     // Receiving Data
-    
+
     const { username, password } = req.body;
-    console.log(username,password);
 
-    // Creating a new User
-    const user = new User({
-      username,
-      password,
-    });
+    //Verify that username is available
+    const available = await User.isThisNameInUse(req.body.userName);
+    if (!available) {
+      return res.status(404).send("That username is already taken");
+    } else {
+      // Creating a new User
+      const user = new User({
+        username,
+        password,
+      });
 
-    // encrypt the user's password
-    user.password = await user.encryptPassword(password);
+      // encrypt the user's password
+      user.password = await user.encryptPassword(password);
 
-    await user.save();
+      await user.save();
 
-    // Create a Token
-    const token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: 60 * 60 * 24, // expires in 24 hours
-    });
+      // Create a Token
+      const token = jwt.sign({ id: user.id }, config.secret, {
+        expiresIn: 60 * 60 * 24, // expires in 24 hours
+      });
 
-    res.json({ auth: true, token });
+      res.json({ auth: true, token });
+    }
   } catch (e) {
     console.log(e);
     res.status(500).send("There was a problem registering your user");
