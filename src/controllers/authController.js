@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 import config from "../config";
-
+import starterproducts from "./utils";
 export const signupController = async (req, res) => {
   try {
     // Receiving Data
@@ -68,4 +68,8 @@ export const signinController = async (req, res) => {
 
 export const logout = async (req, res) => {
   res.status(200).send({ auth: false, token: null });
+};
+
+export const getProducts = async (req, res) => {
+  res.status(200).send(starterproducts);
 };
