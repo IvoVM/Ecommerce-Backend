@@ -5,9 +5,9 @@ const productSchema = new Schema({
   description: { type: String, require: true },
   price: { type: Number, required: true },
   img: { type: String, required: true },
-  quantity: 1,
-  undeleteable: false,
-  type: "product",
+  quantity: {type: Number},
+  undeleteable: {type: Boolean},
+  type: {type: String},
 });
 
 export default model("Product", productSchema);

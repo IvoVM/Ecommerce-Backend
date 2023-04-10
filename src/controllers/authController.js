@@ -17,6 +17,7 @@ export const signupController = async (req, res) => {
       const user = new User({
         username,
         password,
+        type:"user"
       });
 
       // encrypt the user's password
