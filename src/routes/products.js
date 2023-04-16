@@ -39,13 +39,13 @@ router.delete("/products/:id", async (req, res) => {
 });
 router.post("/products/upload", async (req, res) => {
   try {
-    let { title, price, description, img, categorie } = req.body;
+    let { title, price, description, img, category } = req.body;
     let product = new Product({
       title,
       price,
       description,
       img,
-      categorie,
+      category,
       quantity: 1,
     });
     await product.save();
