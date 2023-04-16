@@ -5,7 +5,8 @@ const userSchema = new Schema(
   {
     username: { type: String, require: true, unique: true },
     password: { type: String, require: true },
-    type: { type: String },
+    img: { type: String },
+    description: { type: String },
   },
   {
     timestamps: true,
