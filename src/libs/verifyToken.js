@@ -3,7 +3,8 @@ import config from "../config";
 
 export async function verifyToken(req, res, next) {
   // Get the token from the headers
-  const token = req.headers["x-access-token"];
+  let authHeader = req.headers['authorization']
+  let token = authHeader.split(' ')[1]
 
   // if does not exists a token
   if (!token) {
