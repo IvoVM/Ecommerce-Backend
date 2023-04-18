@@ -7,7 +7,7 @@ const starterproducts = [
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0IsmaUJqr3tuwQNkhmNE_o87RkiGlt4XQmA&usqp=CAU",
     quantity: 1,
     undeleteable: true,
-    category: "Home and furnitures",
+    category: "supermarket",
   },
   {
     _id: "2",
@@ -18,7 +18,7 @@ const starterproducts = [
     quantity: 1,
     total: "200",
     undeleteable: true,
-    category: "Supermarket",
+    category: "supermarket",
   },
   {
     _id: "3",
@@ -29,7 +29,7 @@ const starterproducts = [
     quantity: 1,
     total: "200",
     undeleteable: true,
-    category: "Supermarket",
+    category: "supermarket",
   },
   {
     _id: "4",
@@ -40,7 +40,7 @@ const starterproducts = [
     quantity: 1,
     total: "200",
     undeleteable: true,
-    category: "Supermarket",
+    category: "supermarket",
   },
 ];
 export default starterproducts;
