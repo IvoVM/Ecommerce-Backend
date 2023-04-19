@@ -5,7 +5,6 @@ import cors from "cors"
 
 import authRoutes from "./routes/auth";
 import indexRoutes from "./routes/index";
-import tasksRoutes from "./routes/tasks";
 import productsRoutes from "./routes/products";
 
 
@@ -20,7 +19,6 @@ app.use(express.json());
 
 app.use(indexRoutes);
 app.use(authRoutes);
-app.use(tasksRoutes);
 app.use(productsRoutes);
 
 
