@@ -23,17 +23,16 @@ userSchema.methods.comparePassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-userSchema.static("isThisNameInUse", async function (userName) {
+userSchema.static("availableName", async function (userName) {
   if (!userName) return false;
   try {
-    const user = await this.findOne({ userName });
+    const user = await this.findOne({username:userName});
     if (user) {
       return false;
     } else {
       return true;
     }
   } catch (error) {
-    console.log("error usuario en uso");
     return false;
   }
 });
