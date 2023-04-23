@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User";
+import Product from "../models/Product";
+
 import config from "../config";
 export const signupController = async (req, res) => {
   try {
@@ -39,14 +41,15 @@ export const signupController = async (req, res) => {
 };
 
 export const getProfile = async (req, res) => {
-  // res.status(200).send(decoded);
   // Search the Info base on the ID
   // const user = await User.findById(decoded.id, { password: 0});
-  const user = await User.findById(req.userId, { password: 0 });
+  const user = await User.findById(req.userId);
   if (!user) {
     return res.status(404).send("No user found.");
   }
-  res.status(200).json(user);
+  const userProducts = await Product.find({ userID: req.userId });
+
+  res.status(200).json({ user, userProducts });
 };
 
 export const signinController = async (req, res) => {
@@ -58,6 +61,8 @@ export const signinController = async (req, res) => {
     req.body.password,
     user.password
   );
+  console.log(validPassword);
+
   if (!validPassword) {
     return res.status(401).send({ auth: false, token: null });
   }
@@ -65,6 +70,26 @@ export const signinController = async (req, res) => {
     expiresIn: 60 * 60 * 24,
   });
   res.status(200).json({ auth: true, token, id: user._id });
+};
+
+export const updateProfile = async (req, res) => {
+  try {
+    let { username, _id, description, img } = req.body;
+    let update = await User.findOneAndUpdate(
+      { _id },
+      {
+        username,
+        description,
+        img,
+      }
+    );
+
+    let product = await Product.updateMany({ userID: _id }, { userIMG: img });
+    res.status(200).send({ msg: "Updated profile" });
+  } catch (e) {
+    res.status(500).send("Internal server error");
+    console.log(e);
+  }
 };
 
 export const logout = async (req, res) => {
